@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- <script src="sketch.js"></script> -->
+    <title>Your Consetellation</title>
+</head>
+
+<body class="axis">
+    <h1>This is your Consetellation!!</h1>
+    <div id="canvas"></div>
+    <div class="dataList">
+        <div class="data">
+            <p>Number of Your Stars : </p>
+            <p>144</p>
+        </div>
+        <div class="data">
+            <p>Distance between stars : </p>
+            <p>46</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        //星座を生成するコードたち  クリエイトキャンバス
+        let canvasWidth = 600;
+        let canvasHeight = 600;
+        let numPoints = 144;  //星の数
+        let minDistance = 46;  //星の距離
+        let pointSize = 3;
+        // let pointcolor = rgba(100, 128, 255, 64);
+        var points = [];
+
+        class Point {
+            constructor() {
+                this.x = Math.random() * canvasWidth;
+                this.y = Math.random() * canvasHeight;
+            }
+
+            getDistance(point) {
+                let dx = this.x - point.x;
+                let dy = this.y - point.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+        }
+
+        function setup() {
+            createCanvas(canvasWidth, canvasHeight);
+            let canvas = createCanvas(600, 600);
+            canvas.parent('#canvas');
+            // background(100, 128, 255, 64);
+            // 引数が1つだとグレースケール。0 が黒で 255 が白
+            fill;
+            for (var i = 0; i < numPoints; i++) {
+                points.push(new Point());
+            }
+        }
+
+        function draw() {
+            drawPoints();
+
+
+        }
+
+        function drawPoints() {
+            stroke(0.5);
+            for (var i = 0; i < points.length; i++) {
+                fill(30);
+                // context.strokeRect(100, 100, 50, 50);
+                // context.fillStyle = "#FFFFFF";
+                ellipse(points[i].x, points[i].y, pointSize, pointSize);
+                for (var j = i; j < numPoints; j++) {
+                    if (points[i].getDistance(points[j]) < minDistance) {
+                        line(points[i].x, points[i].y, points[j].x, points[j].y);
+                    }
+                }
+            }
+        }
+
+        //データの受け取り処理
+        var query = location.search;
+        var value = query.split('=');
+        console.log(decodeURIComponent(value[1]));
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>
