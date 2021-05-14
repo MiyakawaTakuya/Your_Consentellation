@@ -14,30 +14,28 @@
 <body class="axis">
     <h1>This is your Consetellation!!</h1>
     <div id="canvas"></div>
+    <h1>Stars Data Based on you</h1>
     <div class="dataList">
         <div class="data">
-            <p>Number of Your Stars : </p>
+            <p> Number of Your Stars : </p>
             <p>144</p>
         </div>
         <div class="data">
             <p>Distance between stars : </p>
             <p>46</p>
+            <p><a href="main2.html">Back
+            </p>
         </div>
     </div>
 
 
 
-
-
-
-
-
     <script>
         //星座を生成するコードたち  クリエイトキャンバス
-        let canvasWidth = 600;
-        let canvasHeight = 600;
-        let numPoints = 144;  //星の数
-        let minDistance = 46;  //星の距離
+        let canvasWidth = 500;
+        let canvasHeight = 500;
+        let numPoints = 144;  //星の数  年齢と相関性を持たせる
+        let minDistance = 46;  //星の距離  クイズの正答率と相関性を持たせる
         let pointSize = 3;
         // let pointcolor = rgba(100, 128, 255, 64);
         var points = [];
@@ -57,7 +55,7 @@
 
         function setup() {
             createCanvas(canvasWidth, canvasHeight);
-            let canvas = createCanvas(600, 600);
+            let canvas = createCanvas(500, 500);
             canvas.parent('#canvas');
             // background(100, 128, 255, 64);
             // 引数が1つだとグレースケール。0 が黒で 255 が白
@@ -69,14 +67,14 @@
 
         function draw() {
             drawPoints();
-
-
         }
 
         function drawPoints() {
             stroke(0.5);
             for (var i = 0; i < points.length; i++) {
                 fill(30);
+                strokeWeight(0.7); //線幅を0.7pxに
+                stroke(250, 200, 250);  //星の色   月日と相関性を持たせる
                 // context.strokeRect(100, 100, 50, 50);
                 // context.fillStyle = "#FFFFFF";
                 ellipse(points[i].x, points[i].y, pointSize, pointSize);

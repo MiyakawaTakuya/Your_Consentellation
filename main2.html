@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+
+    <!-- cssリセット -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- <script src="sketch.js"></script> -->
+    <title>Your Consetellation</title>
+    <style>
+        main {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body class="axis">
+    <section class="infomation">
+        <h1>Please Include Your Infomation</h1>
+        <div class="info">
+            <form method="post" id="name"></form>
+            <div class="cp_iptxt">
+                <label class="ef"><input type="text" placeholder="Your Name(
+Please write in romaji)" name="name" value="" /></label>
+            </div>
+            <div class="cp_iptxt">
+                <label class="ef"><input type="text" placeholder="YYYY/MM/DD  ex)1989/02/09" name="birth"
+                        value="" /></label>
+            </div>
+            </form>
+        </div>
+
+
+    </section>
+
+    <!-- クイズゾーン -->
+    <main>
+        <p class="header">Questions about constellations <span id="count">No.1</span></p>
+
+        <!-- <p id="count">第問</p> -->
+        <p id="question"></p>
+        <form action="">
+            <label for="choice00">
+                <input type="radio" name="choices" id="choice00" value="0">
+                <span id="choice00_label">シリウス</span>
+            </label>
+            <label for="choice01">
+                <input type="radio" name="choices" id="choice01" value="1">
+                <span id="choice01_label">リゲル</span>
+            </label>
+            <label for="choice02">
+                <input type="radio" name="choices" id="choice02" value="2">
+                <span id="choice02_label">アンタレス</span>
+            </label>
+        </form>
+    </main>
+    <footer class="footer">
+        <h1 id="result"></h1>
+        <!-- <button id="makeCons">Make your Consetellation</button> -->
+        <a href="Consetellation.html">
+            <p> Make your Consetellation</p>
+        </a>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+
+            //問題の定義
+            const questions = [
+                '昔の日本で「源氏星」と呼ばれていた星は？',
+                '星座の中でただひとつ昆虫の名前がついているものは？',
+                '実際に存在する星座名はどれ？',
+                'ひらがな1文字の星座はいくつある？',
+                '2020年、一番運気が上がると言われている星座はどれでしょう？',
+                '宮川は何座でしょう？'];
+            //選択肢の定義
+            const choices = [
+                ['シリウス', 'リゲル', 'アンタレス'],
+                ['トンボ座', 'ハエ座', 'バッタ座'],
+                ['や座', 'ゆ座', 'よ座'],
+                ['3', '7', '12'],
+                ['しし座', 'ふたご座', 'みずがめ座'],
+                ['さそり座', 'おうし座', 'みずがめ座'],
+            ];
+            //正解の定義
+            const answer = [1, 1, 0, 0, 2, 2];
+            // カウント用変数と問題文を表示する処理
+            let count = 0; // 何問目かをカウントする変数
+            let correct = 0; // 正解数をカウントする変数
+
+            //最初の問題と選択肢を表示
+            $('#question').text(questions[count]);
+            $('#choice00_label').text(choices[count][0]);
+            $('#choice01_label').text(choices[count][1]);
+            $('#choice02_label').text(choices[count][2]);
+
+            //問題文の表示 // 選択肢の表示 // 選択肢の表示 // 選択肢の表示
+            //クリック時に正誤判定＆次の問題の内容を表示
+            $('input[name="choices"]').on('click', function () {
+                if ($(this).val() == answer[count]) {
+                    //正解の時の処理
+                    alert('OK!!');
+                    $('#result').text('OK!!');
+                    //正解数をカウント
+                    correct++;
+                } else {
+                    //誤答時の処理
+                    alert('NG!!');
+                    $('#result').text('NG!!');
+                }
+                //カウント増やす
+                count++;
+
+                if (count < questions.length) {
+                    //次の問題を提示
+                    $('#count').text('No.' + (Number(count) + 1));
+                    $('#question').text(questions[count]);
+                    $('#choice00_label').text(choices[count][0]);
+                    $('#choice01_label').text(choices[count][1]);
+                    $('#choice02_label').text(choices[count][2]);
+                } else {
+                    //全部終わったら終了で正解数を表示
+                    // alert('NG!!');
+                    alert(correct + 'correct answers!!');
+                }
+            });
+        });
+
+        //すいっちを押すとき
+        // $('#makeCons').click(function () {
+        //     location.href = 'Consetellation.html';
+        // });
+
+    </script>
+</body>
+
+</html>
